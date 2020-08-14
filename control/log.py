@@ -12,15 +12,18 @@ import datetime
 from pathlib import Path
 import sys
 from control.utlis import mkdir
-
+# 获取当前时间
 def today():
     now = datetime.datetime.now()
     return now.strftime('%Y%m%d')
-
-logger = logging.getLogger("swang_interface")
-
-formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(filename)s line:%(lineno)d: %(message)s')
+# 获取logger实例，如果参数为空返回root logger
+logger = logging.getLogger("sw_interface")
+# 制定logger输出格式
+formatter = logging.Formatter(
+    '%(asctime)s [%(levelname)s] %(filename)s line:%(lineno)d: %(message)s')
+# 创建log文件夹
 mkdir('log')
+# 文件日志
 log_file = str(Path('log') / '{}.log'.format(today()))
 file_handler = logging.FileHandler(log_file, mode='a', encoding='utf-8', delay=False)
 file_handler.setFormatter(formatter)

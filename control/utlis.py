@@ -141,26 +141,37 @@ def suite_format(data):
 
 def mkdir(p):
     path = Path(p)
+    print(path)
     if not path.is_dir():
         path.mkdir()
 
 
-if __name__ == "__main__":
-    # file = '../element/elements.xlsx'
-    # e = Excel('r', file)
-    # list_read = e.read()
-    # for i in list_read:
-    #     print(i)
-    # ele = element_tojson(list_read)
-    # print(ele['获取短信验证码'])
-    test_case = '../testcase/testcase.xlsx'
-    e_case = Excel('r', test_case)
-    # 打印输出结果
-    # for case in e_case.read():
-    #     print(case)
-    re = e_case.read()
-    # for c in datatodict(re):
-    #     print(c)
-    data = datatodict(re)
-    testsuite = suite_format(data)
-    print(testsuite)
+# if __name__ == "__main__":
+#     # file = '../element/elements.xlsx'
+#     # e = Excel('r', file)
+#     # list_read = e.read()
+#     # for i in list_read:
+#     #     print(i)
+#     # ele = element_tojson(list_read)
+#     # print(ele)
+#     test_case = '../testcase/testcase.xlsx'
+#     e_case = Excel('r', test_case)
+#     # 打印输出结果
+#     # for case in e_case.read():
+#     #     print(case)
+#     re = e_case.read()
+#     # for c in datatodict(re):
+#     #     print(c)
+#     data = datatodict(re)
+#     testsuite = suite_format(data)
+#     print(testsuite)
+def creation_files():
+    # 创建文件
+    files = ('report', 'junit', 'book', 'file')
+    for file in files:
+        mkdir(file)
+    txt_path = str(Path('control/book') / ('txt_final.txt'))
+    txt = open(txt_path, 'w')
+    txt.seek(0)
+    txt.truncate()
+    txt.close()
