@@ -1,2 +1,6 @@
 .idea/
 .DS_Store
+control/__pycache__/
+control/book/
+control/lib/__pycache__/
+log/
