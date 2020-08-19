@@ -3,4 +3,7 @@
 control/__pycache__/
 control/book/
 control/lib/__pycache__/
-log/
+control/log/
+control/junit/
+control/report/
+
