@@ -12,7 +12,7 @@ import re
 import time
 from control.config import report_header, header_custom, file_element
 from control.lib import *
-from control.log import logger
+from control.log import Logger
 from control.utlis import Excel
 from pathlib import Path
 from control.config import header
@@ -20,6 +20,7 @@ import re
 import operator
 
 var = []
+logger = Logger()
 
 
 def replace(data):
@@ -123,7 +124,7 @@ def datatodict(data):
 
 # dict格式的数据处理为测试套件格式
 def suite_format(data):
-    from control.log import logger
+
     # 在重组的时候 得到element文件，并制定url
 
     element = file_element

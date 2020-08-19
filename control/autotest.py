@@ -3,7 +3,7 @@ from datetime import datetime
 from control.data import suite2data, datatodict, suite_format
 from control.testcase import TestCase
 from control.utlis import Excel, creation_files
-from control.log import logger
+from control.log import Logger
 from email.mime.application import MIMEApplication
 import smtplib
 from email.mime.text import MIMEText
@@ -14,6 +14,7 @@ import threading
 import requests
 import time
 
+logger = Logger()
 
 class Autotest:
     def __init__(self, allocation):

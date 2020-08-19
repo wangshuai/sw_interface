@@ -9,29 +9,42 @@ date: 2019-11-01 16:47
 '''
 import logging
 import datetime
+import time
+import os
 from pathlib import Path
 import sys
 from control.utlis import mkdir
-# 获取当前时间
-def today():
-    now = datetime.datetime.now()
-    return now.strftime('%Y%m%d')
-# 获取logger实例，如果参数为空返回root logger
-logger = logging.getLogger("sw_interface")
-# 制定logger输出格式
-formatter = logging.Formatter(
-    '%(asctime)s [%(levelname)s] %(filename)s line:%(lineno)d: %(message)s')
-# 创建log文件夹
-mkdir('log')
-# 文件日志
-log_file = str(Path('log') / '{}.log'.format(today()))
-file_handler = logging.FileHandler(log_file, mode='a', encoding='utf-8', delay=False)
-file_handler.setFormatter(formatter)
 
-console_handler = logging.StreamHandler(sys.stdout)
-console_handler.formatter = formatter
+class Logger:
+    def __init__(self):
+        file_date = time.strftime("%Y-%m-%d", time.localtime())
+        base_path = os.path.dirname(__file__)
+        log_dir = base_path + '/log'
+        if not os.path.exists(log_dir):
+            os.mkdir(log_dir)
+        self.file_name = ''.join((log_dir, os.sep, 'autotest-', file_date, '.log'))
+        self.logger = logging.getLogger('sw_interface')
+        if not self.logger.handlers:
+            self.formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] %(filename)s line:%(lineno)d: %(message)s')
+            self.logger.setLevel(logging.INFO)
+            self.fh = logging.FileHandler(self.file_name, encoding='utf-8')
+            self.ch = logging.StreamHandler()
+            self.fh.setFormatter(self.formatter)
+            self.ch.setFormatter(self.formatter)
+            self.logger.addHandler(self.fh)
+            self.logger.addHandler(self.ch)
 
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+    def debug(self, message):
+        self.logger.debug(message)
 
-logger.setLevel(logging.INFO)
+    def info(self, message):
+        self.logger.info(message)
+
+    def warn(self, message):
+        self.logger.warning(message)
+
+    def error(self, message):
+        self.logger.error(message)
+
+    def critical(self, message):
+        self.logger.critical(message)

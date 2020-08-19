@@ -47,6 +47,32 @@ class Excel():
         # 将得到的Excel数据返回进行处理
         return self.list_data
 
+    def write(self, data, sheet_name):
+        # 设置报告格式
+        sheet = self.workbook.add_worksheet(sheet_name)
+        # 每行的宽度
+        sheet.set_column('A:Q', 15)
+
+        cell_format = self.workbook.add_format({'bold': True})
+        sheet.set_row(0, 20, cell_format)
+        # 红色
+        red = self.workbook.add_format({'bg_color': 'red', 'color': 'white'})
+        # 绿色
+        green = self.workbook.add_format(
+            {'bg_color': 'green', 'color': 'white'})
+        for i in range(len(data)):
+            for j in range(len(data[i])):
+                # 进行用例结果的背景颜色更改 不同状态的用例 不同颜色
+                if str(data[i][j]) == 'Fail':
+                    sheet.write(i, j, str(data[i][j]), red)
+                elif str(data[i][j]) == 'Pass':
+                    sheet.write(i, j, str(data[i][j]), green)
+                else:
+                    sheet.write(i, j, str(data[i][j]))
+
+    def close(self):
+        self.workbook.close()
+
 # 将元素和链接表处理为json格式方便查询
 def element_tojson(element):
     elements = {}

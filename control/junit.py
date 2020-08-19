@@ -3,7 +3,9 @@ from xml.dom.minidom import Document
 from pathlib import Path
 from control.data import gettime
 from datetime import datetime
-from control.log import logger
+from control.log import Logger
+
+logger = Logger()
 
 
 class Junit:
@@ -77,6 +79,7 @@ class Junit:
 
     # 生成xml  是allure的数据源
     def write_toxml(self):
+
         # 计算执行的时间， 用当前时间-开始时间 是总耗时
         td = datetime.now() - self.pstarttime
         td_time = float(

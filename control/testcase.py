@@ -4,12 +4,11 @@
 2.分辨是接口自动化还是ui数据等
 3.记录测试结果和输出测试报告
 """
-from control.log import logger
+from control.log import Logger
 from control.data import replace, acquire
 from control import httpcaps
 import threading
 import time
-
 
 class TestCase:
     _instance_lock = threading.Lock()
@@ -37,6 +36,8 @@ class TestCase:
 
     #  执行测试用例
     def run(self, case):
+        logger = Logger()
+
         # 当前执行的用例
         self.case = case
         # 记录执行的用例结果，新的用例来了，就清空了

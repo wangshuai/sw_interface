@@ -1,11 +1,13 @@
 import requests
 
 from control.config import file_element
-from control.log import logger
+from control.log import Logger
 from control.data import *
 import base64
 from control.data import element_tojson
 from control.utlis import Excel
+
+logger = Logger()
 
 
 def http_requests(step, junit):
@@ -16,7 +18,6 @@ def http_requests(step, junit):
     # 元素和接口转换为json，切片是为了去除表格的第一行
     e = excel_element.read()[2:3]
     elements = element_tojson(e)
-
     logger.info('当前执行的步骤')
     logger.info(step)
     # 获取当前的请求类型
