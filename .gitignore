@@ -3,7 +3,9 @@
 control/__pycache__/
 control/book/
 control/lib/__pycache__/
-control/log/
-control/junit/
-control/report/
+control/log/*
+control/junit/*
+control/report/*
+venv/*
+control/demo.py
 
